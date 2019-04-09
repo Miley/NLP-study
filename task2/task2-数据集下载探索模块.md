@@ -27,11 +27,49 @@ THUCNews是根据新浪新闻RSS订阅频道2005~2011年间的历史数据筛选
 
 
 # 3.评价指标
-## 3.1准确率 vs. 召回率
 
-**混淆矩阵**
+以二类分类为例 </br>
 
+**混淆矩阵** </br>
+True Positive(真正，TP)：将正类预测为正类数
 
+True Negative(真负，TN)：将负类预测为负类数
+
+False Positive(假正，FP)：将负类预测为正类数误报 (Type I error)
+
+False Negative(假负，FN)：将正类预测为负类数→漏报 (Type II error)
+
+![avatar](1.jpg)
+![avatar](2.jpg)
+
+## 3.1 准确率 vs. 召回率
+
+- 准确率(Accuracy)计算公式：
+
+$$ACC =\frac{TP + TN}{TP + TN + FP + FN}$$
+
+- 精确率(precision)计算公式：(针对结果集，找得对)
+
+$$P =\frac{TP}{TP + FP}$$
+
+- 召回率(recall)计算公式：(针对原始数据集，找得全)
+
+$$recall =\frac{TP}{TP + FN}$$
+
+## 3.2 ROC曲线 vs. AUC
+ROC（Receiver Operating Characteristic）曲线是以假正率（FP_rate）和假负率（TP_rate）为轴的曲线，ROC曲线下面的面积我们叫做AUC.</br>
+![avatar](roc.jpg)
+
+其中：</br>
+
+1. <font color=#FF0000>曲线与FP_rate轴围成的面积（记作AUC）越大，说明性能越好</font>，即图上L2曲线对应的性能优于曲线L1对应的性能。即：曲线越靠近A点（左上方）性能越好，曲线越靠近B点（右下方）曲线性能越差。 
+2. A点是最完美的performance点，B处是性能最差点。
+3. 位于C-D线上的点说明算法性能和random猜测是一样的–如C、D、E点。位于C-D之上（即曲线位于白色的三角形内）说明算法性能优于随机猜测–如G点，位于C-D之下（即曲线位于灰色的三角形内）说明算法性能差于随机猜测–如F点。 
+4. 虽然ROC曲线相比较于Precision和Recall等衡量指标更加合理，但是其在高不平衡数据条件下的的表现仍然过于理想，不能够很好的展示实际情况。
+
+## 3.3 PR曲线
+即 PR（Precision-Recall）曲线。</br>
+假设 N_c>>P_c（即Negative的数量远远大于Positive的数量），若FP很大，即有很多N的sample被预测为P，因为$FP_rate =\frac{FP}{Nc}$，因此FP_rate的值仍然很小（如果利用ROC曲线则会判断其性能很好，但是实际上其性能并不好），但是如果利用PR，因为Precision综合考虑了TP和FP的值，因此<font color=#FF0000>在极度不平衡的数据下（Positive的样本较少），PR曲线可能比ROC曲线更实用</font>。
 
 
 
@@ -51,5 +89,6 @@ THUCNews是根据新浪新闻RSS订阅频道2005~2011年间的历史数据筛选
 6.[慕课笔记：机器学习之类别不平衡问题 (2) —— ROC和PR曲线](https://www.imooc.com/article/48072)
 
 7.[博客：机器学习算法中的准确率(Precision)、召回率(Recall)、F值(F-Measure)](https://www.cnblogs.com/Zhi-Z/p/8728168.html)
+
 
 
