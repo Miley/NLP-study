@@ -167,6 +167,8 @@ jieba提供很好的中文分词，但是并没有提供N-gram；sklearn的Count
 词袋（Bag-of-words，BOW）模型，假定对于一个文档，忽略它的单词顺序和语法、句法等要素，将其仅仅看作是若干个词汇的集合，文档中每个单词的出现都是独立的，不依赖于其它单词是否出现。
 （**可以看做是N-gram中的特例1元模型**）
 
+词袋模型的三部曲：分词（tokenizing），统计修订词特征值（counting）与标准化（normalizing）。
+
 ## 3.1 step1：分词
 （可采用结巴分词来进行分词操作，其他库也可以）
 
@@ -194,12 +196,16 @@ jieba提供很好的中文分词，但是并没有提供N-gram；sklearn的Count
 
 可以使用sklearn实现文档向量化
 
-- 文档向量化（计数向量化）：sklearn.feature_extraction.text.CountVectorizer
+- 文档向量化（计数向量化）：sklearn.feature_extraction.text.CountVectorizer  
 - TFIDF向量化：sklearn.feature_extraction.text.TfidTransformer
 
 ## 3.4 完整代码示例
 
 详见代码 *feature-extraction-test.ipynb*
+
+**[注意]** 统计个数和计算频率两种方法虽然非常实用，但是也有其局限性，会导致词汇量可能变得非常大，词汇量过大又将导致需要非常大的矢量来编码文档，从而对内存产生很大的要求，同时拖慢算法的速度。
+
+**[注意]** jieba 组件中也包含 TF-IDF 算法。
 
 ## Ref：
 1.[GitHub：结巴分词介绍和使用](https://github.com/fxsjy/jieba)
